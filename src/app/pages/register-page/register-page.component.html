@@ -1,0 +1,215 @@
+<section class="hero is-primary is-fullheight">
+  <div class="hero-body">
+    <div class="container has-text-centered">
+      <h1 class="title pacifico larger-text">
+        modern web store
+      </h1>
+
+      <div class="columns">
+        <div class="column box is-half is-offset-one-quarter">
+          <div class="notification is-danger" *ngIf="errors.length > 0">
+            <ul>
+              <li *ngFor="let error of errors">{{ error.message }}</li>
+            </ul>
+          </div>
+
+          <div class="field">
+            <label class="radio">
+              <input type="radio" [value]="doctype" (click)="TypePerson()" name="documentType" checked='true' > Pessoa Jurídica
+              <input type="radio" [value]="doctype"  (click)="TypePerson()" name="documentType" > Pessoa Física
+            </label>
+          </div>
+
+          <form [formGroup]="form" >
+
+
+
+            <div class="field">
+              <p class="control">
+                <input class="input is-large" type="text" placeholder="Document" formControlName="document" >
+                <span class="tag is-danger" *ngIf="!form.controls.document.valid && !form.controls.document.pristine">Document
+                  inválido
+                </span>
+              </p>
+            </div>
+
+            <div class="field">
+              <p class="control">
+                <input class="input is-large" type="text" placeholder="Inscrição Estadual" formControlName="inscricaoEstadual" [readonly]="docType">
+                <label class="checkbox">
+                  <input type="checkbox" id="chkIsento" (click)="InscricaoCheck()" [disabled]="docType"> Isento?
+                </label>
+                <span class="tag is-danger" *ngIf="!form.controls.inscricaoEstadual.valid && !form.controls.inscricaoEstadual.pristine">Inscrição
+                  estadual inválido
+                </span>
+              </p>
+            </div>
+
+            <div class="field">
+              <p class="control">
+                <input class="input is-large" type="text" placeholder="Nome da Empresa" formControlName="companyName"  [readonly]="docType">
+                <span class="tag is-danger" *ngIf="!form.controls.companyName.valid && !form.controls.companyName.pristine">Company
+                  name inválido
+                </span>
+              </p>
+            </div>
+
+            <div class="field">
+              <p class="control">
+                <input class="input is-large" type="text" placeholder="Nome" formControlName="firstName">
+                <span class="tag is-danger" *ngIf="!form.controls.firstName.valid && !form.controls.firstName.pristine">Nome
+                  inválido
+                </span>
+              </p>
+            </div>
+
+            <div class="field">
+              <p class="control">
+                <input class="input is-large" type="text" placeholder="Sobrenome" formControlName="lastName">
+              </p>
+            </div>
+            <!-- 
+            <div class="field">
+              <p class="control" id="emailControl">
+                <input class="input is-large" type="email" placeholder="E-mail" formControlName="email" [ngClass]=" {'is-danger': (!form.controls.email.valid && !form.controls.email.pristine) }">
+                <span class="tag is-danger" *ngIf="!form.controls.email.valid && !form.controls.email.pristine">E-mail inválido</span>
+              </p>
+            </div>
+
+
+            <div class="field">
+              <p class="control">
+                <input class="input is-large" type="text" placeholder="Usuário" formControlName="username">
+              </p>
+            </div>
+
+
+            <div class="field">
+              <p class="control">
+                <input class="input is-large" type="password" placeholder="Senha" formControlName="password">
+              </p>
+            </div>
+
+
+            <div class="field">
+              <p class="control">
+                <input class="input is-large" type="password" placeholder="Confirmar Senha" formControlName="confirmPassword">
+              </p>
+            </div>
+
+
+            <br />
+            <hr /> -->
+
+
+            <div class="field">
+              <p class="control">
+                <input class="input is-large" type="text" placeholder="Cep" formControlName="cep"  (blur)="getCep(form.controls.cep.value)">
+                <span class="tag is-danger" *ngIf="!form.controls.cep.valid && !form.controls.cep.pristine">CEP inválido
+                </span>
+              </p>
+            </div>
+
+
+            <div class="field">
+              <p class="control">
+                <input class="input is-large" type="text" placeholder="Endereço"  formControlName="endereco">
+                <span class="tag is-danger" *ngIf="!form.controls.endereco.valid && !form.controls.endereco.pristine">Endereço
+                  inválido
+                </span>
+              </p>
+            </div>
+
+
+            <div class="field">
+              <p class="control">
+                <input class="input is-large" type="text" placeholder="Número" formControlName="numero">
+                <span class="tag is-danger" *ngIf="!form.controls.numero.valid && !form.controls.numero.pristine">Número
+                  inválido
+                </span>
+              </p>
+            </div>
+
+
+            <div class="field">
+              <p class="control">
+                <input class="input is-large" type="text" placeholder="Complemento" formControlName="complemento">
+                <span class="tag is-danger" *ngIf="!form.controls.complemento.valid && !form.controls.complemento.pristine">Complemento
+                  inválido
+                </span>
+              </p>
+            </div>
+
+
+            <div class="field">
+              <p class="control">
+                <input class="input is-large" type="text" placeholder="Bairro" formControlName="bairro">
+                <span class="tag is-danger" *ngIf="!form.controls.bairro.valid && !form.controls.bairro.pristine">Bairro
+                  inválido
+                </span>
+              </p>
+            </div>
+
+
+            <div class="field">
+              <p class="control">
+                <input class="input is-large" type="text" placeholder="Cidade" formControlName="cidade">
+                <span class="tag is-danger" *ngIf="!form.controls.cidade.valid && !form.controls.cidade.pristine">Cidade
+                  inválido
+                </span>
+              </p>
+            </div>
+
+
+            <div class="field">
+              <p class="control">
+                <input class="input is-large" type="text" placeholder="Estado" formControlName="estado">
+                <span class="tag is-danger" *ngIf="!form.controls.estado.valid && !form.controls.estado.pristine">Estado
+                  inválido
+                </span>
+              </p>
+            </div>
+
+
+            <br />
+            <hr />
+
+
+            <div class="field">
+              <p class="control">
+                <input class="input is-large" type="text" placeholder="Telefone" formControlName="phone">
+                <span class="tag is-danger" *ngIf="!form.controls.phone.valid && !form.controls.phone.pristine">Telefone
+                  inválido
+                </span>
+              </p>
+            </div>
+
+            <div class="field">
+              <p class="control">
+                <input class="input is-large" type="text" placeholder="Celular" formControlName="cellphone">
+                <span class="tag is-danger" *ngIf="!form.controls.cellphone.valid && !form.controls.cellphone.pristine">Celular
+                  inválido
+                </span>
+              </p>
+            </div>
+
+            <br>
+            <br>
+
+
+            <div class="field">
+              <p>
+                <button (click)="submit()" class="button is-success  is-outlined is-large is-fullwidth">CADASTRAR</button>
+                <!--[disabled]="!form.valid"-->
+                <br>
+                <a routerLink="/" class="button is-link is-fullwidth">VOLTAR PARA TELA DE LOGIN</a>
+              </p>
+            </div>
+
+
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

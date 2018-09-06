@@ -1,0 +1,16 @@
+<div id="navbarMenuHeroB" class="navbar-menu">
+  <div class="navbar-end ">
+    <a class="navbar-item">Bem vindo, {{ user }}</a>
+    <a class="navbar-item" routerLink="/home">Home</a>
+    <a class="navbar-item" routerLink="/cart">Carrinho ({{ totalItems }})</a>
+    <a class="navbar-item" routerLink="/profile">Meu Perfil</a>
+    <span class="navbar-item">
+      <a class="button is-primary is-inverted" (click)="logout()">
+          <span class="icon">
+              <i class="fa fa-power-off"></i>
+          </span>
+        <span>Sair</span>
+    </a>
+    </span>
+  </div>
+</div>

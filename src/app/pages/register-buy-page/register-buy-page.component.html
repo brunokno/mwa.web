@@ -1,0 +1,424 @@
+<section class="hero is-primary is-fullheight">
+  <div class="hero-body">
+    <div class="container has-text-centered">
+      <h1 class="title pacifico larger-text">
+        modern web store
+      </h1>
+
+      
+      <form [formGroup]="form">
+
+        <div class="columns" style="padding-bottom: 15%">
+          <div class="column box is-half"> <!--  is-half is-offset-one-quarter-->
+            <div class="notification is-danger" *ngIf="errors.length > 0">
+                <ul>
+                  <li *ngFor="let error of errors">{{ error.message }}</li>
+                </ul>
+              </div>
+
+            <div class="field">
+              <label class="radio">
+                <input type="radio" [value]="doctype" (click)="TypePerson()" name="documentType" checked='true'> Pessoa Jurídica
+                <input type="radio" [value]="doctype" (click)="TypePerson()" name="documentType"> Pessoa Física
+              </label>
+            </div>
+
+
+
+
+
+            <div class="field">
+              <p class="control">
+                <input class="input is-large" type="text" placeholder="Document" formControlName="faturamento_document">
+                <span class="tag is-danger" *ngIf="!form.controls.faturamento_document.valid && !form.controls.faturamento_document.pristine">Document
+                  inválido
+                </span>
+              </p>
+            </div>
+
+            <div class="field">
+              <p class="control">
+                <input class="input is-large" type="text" placeholder="Inscrição Estadual" formControlName="faturamento_inscricaoEstadual"
+                  [readonly]="docType">
+                <label class="checkbox">
+                  <input type="checkbox" id="chkIsento" (click)="InscricaoCheck()" [disabled]="docType"> Isento?
+                </label>
+                <span class="tag is-danger" *ngIf="!form.controls.faturamento_inscricaoEstadual.valid && !form.controls.faturamento_inscricaoEstadual.pristine">Inscrição
+                  estadual inválido
+                </span>
+              </p>
+            </div>
+
+            <div class="field">
+              <p class="control">
+                <input class="input is-large" type="text" placeholder="Nome da Empresa" formControlName="faturamento_companyName" [readonly]="docType">
+                <span class="tag is-danger" *ngIf="!form.controls.faturamento_companyName.valid && !form.controls.faturamento_companyName.pristine">Company
+                  name inválido
+                </span>
+              </p>
+            </div>
+
+            <div class="field">
+              <p class="control">
+                <input class="input is-large" type="text" placeholder="Nome" formControlName="faturamento_firstName">
+                <span class="tag is-danger" *ngIf="!form.controls.faturamento_firstName.valid && !form.controls.faturamento_firstName.pristine">Nome
+                  inválido
+                </span>
+              </p>
+            </div>
+
+            <div class="field">
+              <p class="control">
+                <input class="input is-large" type="text" placeholder="Sobrenome" formControlName="faturamento_lastName">
+              </p>
+            </div>
+            <!-- 
+            <div class="field">
+              <p class="control" id="emailControl">
+                <input class="input is-large" type="email" placeholder="E-mail" formControlName="faturamento_email" [ngClass]=" {'is-danger': (!form.controls.faturamento_email.valid && !form.controls.faturamento_email.pristine) }">
+                <span class="tag is-danger" *ngIf="!form.controls.faturamento_email.valid && !form.controls.faturamento_email.pristine">E-mail inválido</span>
+              </p>
+            </div>
+
+
+            <div class="field">
+              <p class="control">
+                <input class="input is-large" type="text" placeholder="Usuário" formControlName="faturamento_username">
+              </p>
+            </div>
+
+
+            <div class="field">
+              <p class="control">
+                <input class="input is-large" type="password" placeholder="Senha" formControlName="faturamento_password">
+              </p>
+            </div>
+
+
+            <div class="field">
+              <p class="control">
+                <input class="input is-large" type="password" placeholder="Confirmar Senha" formControlName="faturamento_confirmPassword">
+              </p>
+            </div>
+
+
+            <br />
+            <hr /> -->
+
+
+            <div class="field">
+              <p class="control">
+                <input class="input is-large" type="text" placeholder="Cep" formControlName="faturamento_cep" (blur)="getCep(form.controls.faturamento_cep.value)">
+                <span class="tag is-danger" *ngIf="!form.controls.faturamento_cep.valid && !form.controls.faturamento_cep.pristine">CEP
+                  inválido
+                </span>
+              </p>
+            </div>
+
+
+            <div class="field">
+              <p class="control">
+                <input class="input is-large" type="text" placeholder="Endereço" formControlName="faturamento_endereco">
+                <span class="tag is-danger" *ngIf="!form.controls.faturamento_endereco.valid && !form.controls.faturamento_endereco.pristine">Endereço
+                  inválido
+                </span>
+              </p>
+            </div>
+
+
+            <div class="field">
+              <p class="control">
+                <input class="input is-large" type="text" placeholder="Número" formControlName="faturamento_numero">
+                <span class="tag is-danger" *ngIf="!form.controls.faturamento_numero.valid && !form.controls.faturamento_numero.pristine">Número
+                  inválido
+                </span>
+              </p>
+            </div>
+
+
+            <div class="field">
+              <p class="control">
+                <input class="input is-large" type="text" placeholder="Complemento" formControlName="faturamento_complemento">
+                <span class="tag is-danger" *ngIf="!form.controls.faturamento_complemento.valid && !form.controls.faturamento_complemento.pristine">Complemento
+                  inválido
+                </span>
+              </p>
+            </div>
+
+
+            <div class="field">
+              <p class="control">
+                <input class="input is-large" type="text" placeholder="Bairro" formControlName="faturamento_bairro">
+                <span class="tag is-danger" *ngIf="!form.controls.faturamento_bairro.valid && !form.controls.faturamento_bairro.pristine">Bairro
+                  inválido
+                </span>
+              </p>
+            </div>
+
+
+            <div class="field">
+              <p class="control">
+                <input class="input is-large" type="text" placeholder="Cidade" formControlName="faturamento_cidade">
+                <span class="tag is-danger" *ngIf="!form.controls.faturamento_cidade.valid && !form.controls.faturamento_cidade.pristine">Cidade
+                  inválido
+                </span>
+              </p>
+            </div>
+
+
+            <div class="field">
+              <p class="control">
+                <input class="input is-large" type="text" placeholder="Estado" formControlName="faturamento_estado">
+                <span class="tag is-danger" *ngIf="!form.controls.faturamento_estado.valid && !form.controls.faturamento_estado.pristine">Estado
+                  inválido
+                </span>
+              </p>
+            </div>
+
+
+            <br />
+            <hr />
+
+
+            <div class="field">
+              <p class="control">
+                <input class="input is-large" type="text" placeholder="Telefone" formControlName="faturamento_phone">
+                <span class="tag is-danger" *ngIf="!form.controls.faturamento_phone.valid && !form.controls.faturamento_phone.pristine">Telefone
+                  inválido
+                </span>
+              </p>
+            </div>
+
+            <div class="field">
+              <p class="control">
+                <input class="input is-large" type="text" placeholder="Celular" formControlName="faturamento_cellphone">
+                <span class="tag is-danger" *ngIf="!form.controls.faturamento_cellphone.valid && !form.controls.faturamento_cellphone.pristine">Celular
+                  inválido
+                </span>
+              </p>
+            </div>
+
+            <br>
+            <br>
+
+
+            <!-- <div class="field">
+              <p>
+                <button (click)="submit()" class="button is-success  is-outlined is-large is-fullwidth">CADASTRAR</button>
+                <br>
+                <a routerLink="/" class="button is-link is-fullwidth">VOLTAR PARA TELA DE LOGIN</a>
+              </p>
+            </div> -->
+
+
+            <!-- </form> -->
+          </div>
+
+
+          <div class="column  box "><!-- is-half is-offset-one-quarter -->
+
+
+            <div class="field">
+              <label class="radio">
+                <input type="radio" [value]="doctype" (click)="TypePerson()" name="microsoft_documentType" checked='true'>Pessoa
+                Jurídica
+                <input type="radio" [value]="doctype" (click)="TypePerson()" name="microsoft_documentType"> Pessoa Física
+              </label>
+            </div>
+
+            <!-- <form [formGroup]="form" > -->
+
+
+
+            <div class="field">
+              <p class="control">
+                <input class="input is-large" type="text" placeholder="Document" formControlName="microsoft_document">
+                <span class="tag is-danger" *ngIf="!form.controls.microsoft_document.valid && !form.controls.microsoft_document.pristine">Document
+                  inválido
+                </span>
+              </p>
+            </div>
+
+            <div class="field">
+              <p class="control">
+                <input class="input is-large" type="text" placeholder="Inscrição Estadual" formControlName="microsoft_inscricaoEstadual"
+                  [readonly]="docType">
+                <label class="checkbox">
+                  <input type="checkbox" id="chkIsento" (click)="InscricaoCheck()" [disabled]="docType"> Isento?
+                </label>
+                <span class="tag is-danger" *ngIf="!form.controls.microsoft_inscricaoEstadual.valid && !form.controls.microsoft_inscricaoEstadual.pristine">Inscrição
+                  estadual inválido
+                </span>
+              </p>
+            </div>
+
+            <div class="field">
+              <p class="control">
+                <input class="input is-large" type="text" placeholder="Nome da Empresa" formControlName="microsoft_companyName" [readonly]="docType">
+                <span class="tag is-danger" *ngIf="!form.controls.microsoft_companyName.valid && !form.controls.microsoft_companyName.pristine">Company
+                  name inválido
+                </span>
+              </p>
+            </div>
+
+            <div class="field">
+              <p class="control">
+                <input class="input is-large" type="text" placeholder="Nome" formControlName="microsoft_firstName">
+                <span class="tag is-danger" *ngIf="!form.controls.microsoft_firstName.valid && !form.controls.microsoft_firstName.pristine">Nome
+                  inválido
+                </span>
+              </p>
+            </div>
+
+            <div class="field">
+              <p class="control">
+                <input class="input is-large" type="text" placeholder="Sobrenome" formControlName="microsoft_lastName">
+              </p>
+            </div>
+            <!-- 
+            <div class="field">
+              <p class="control" id="emailControl">
+                <input class="input is-large" type="email" placeholder="E-mail" formControlName="microsoft_email" [ngClass]=" {'is-danger': (!form.controls.email.valid && !form.controls.email.pristine) }">
+                <span class="tag is-danger" *ngIf="!form.controls.microsoft_email.valid && !form.controls.microsoft_email.pristine">E-mail inválido</span>
+              </p>
+            </div>
+
+
+            <div class="field">
+              <p class="control">
+                <input class="input is-large" type="text" placeholder="Usuário" formControlName="microsoft_username">
+              </p>
+            </div>
+
+
+            <div class="field">
+              <p class="control">
+                <input class="input is-large" type="password" placeholder="Senha" formControlName="microsoft_password">
+              </p>
+            </div>
+
+
+            <div class="field">
+              <p class="control">
+                <input class="input is-large" type="password" placeholder="Confirmar Senha" formControlName="microsoft_confirmPassword">
+              </p>
+            </div>
+
+
+            <br />
+            <hr /> -->
+
+
+            <div class="field">
+              <p class="control">
+                <input class="input is-large" type="text" placeholder="Cep" formControlName="microsoft_cep" (blur)="getCep(form.controls.microsoft_cep.value)">
+                <span class="tag is-danger" *ngIf="!form.controls.microsoft_cep.valid && !form.controls.microsoft_cep.pristine">CEP
+                  inválido
+                </span>
+              </p>
+            </div>
+
+
+            <div class="field">
+              <p class="control">
+                <input class="input is-large" type="text" placeholder="Endereço" formControlName="microsoft_endereco">
+                <span class="tag is-danger" *ngIf="!form.controls.microsoft_endereco.valid && !form.controls.microsoft_endereco.pristine">Endereço
+                  inválido
+                </span>
+              </p>
+            </div>
+
+
+            <div class="field">
+              <p class="control">
+                <input class="input is-large" type="text" placeholder="Número" formControlName="microsoft_numero">
+                <span class="tag is-danger" *ngIf="!form.controls.microsoft_numero.valid && !form.controls.microsoft_numero.pristine">Número
+                  inválido
+                </span>
+              </p>
+            </div>
+
+
+            <div class="field">
+              <p class="control">
+                <input class="input is-large" type="text" placeholder="Complemento" formControlName="microsoft_complemento">
+                <span class="tag is-danger" *ngIf="!form.controls.microsoft_complemento.valid && !form.controls.microsoft_complemento.pristine">Complemento
+                  inválido
+                </span>
+              </p>
+            </div>
+
+
+            <div class="field">
+              <p class="control">
+                <input class="input is-large" type="text" placeholder="Bairro" formControlName="microsoft_bairro">
+                <span class="tag is-danger" *ngIf="!form.controls.microsoft_bairro.valid && !form.controls.microsoft_bairro.pristine">Bairro
+                  inválido
+                </span>
+              </p>
+            </div>
+
+
+            <div class="field">
+              <p class="control">
+                <input class="input is-large" type="text" placeholder="Cidade" formControlName="microsoft_cidade">
+                <span class="tag is-danger" *ngIf="!form.controls.microsoft_cidade.valid && !form.controls.microsoft_cidade.pristine">Cidade
+                  inválido
+                </span>
+              </p>
+            </div>
+
+
+            <div class="field">
+              <p class="control">
+                <input class="input is-large" type="text" placeholder="Estado" formControlName="microsoft_estado">
+                <span class="tag is-danger" *ngIf="!form.controls.microsoft_estado.valid && !form.controls.microsoft_estado.pristine">Estado
+                  inválido
+                </span>
+              </p>
+            </div>
+
+
+            <br />
+            <hr />
+
+
+            <div class="field">
+              <p class="control">
+                <input class="input is-large" type="text" placeholder="Telefone" formControlName="microsoft_phone">
+                <span class="tag is-danger" *ngIf="!form.controls.microsoft_phone.valid && !form.controls.microsoft_phone.pristine">Telefone
+                  inválido
+                </span>
+              </p>
+            </div>
+
+            <div class="field">
+              <p class="control">
+                <input class="input is-large" type="text" placeholder="Celular" formControlName="microsoft_cellphone">
+                <span class="tag is-danger" *ngIf="!form.controls.microsoft_cellphone.valid && !form.controls.microsoft_cellphone.pristine">Celular
+                  inválido
+                </span>
+              </p>
+            </div>
+
+            <br>
+            <br>
+
+
+            <!-- <div class="field">
+              <p>
+                <button (click)="submit()" class="button is-success  is-outlined is-large is-fullwidth">CADASTRAR</button>                
+                <br>
+                <a routerLink="/" class="button is-link is-fullwidth">VOLTAR PARA TELA DE LOGIN</a>
+              </p>
+            </div> -->
+
+          </div>
+      </div>
+    </form>
+
+    
+    </div>
+
+  </div>
+</section>
