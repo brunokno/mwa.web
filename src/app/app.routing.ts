@@ -8,8 +8,10 @@ import { SignupPageComponent } from './pages/signup-page/signup-page.component';
 import { MyProfileComponent } from './pages/my-profile/my-profile.component';
 import { RegisterPageComponent } from './pages/register-page/register-page.component';
 import { RegisterBuyPageComponent } from './pages/register-buy-page/register-buy-page.component';
+import { MarkupPageComponent } from './pages/markup-page/markup-page.component';
 
 import { AuthService } from './services/auth.service';
+
 
 const appRoutes : Routes=[
     {path:'', component: LoginPageComponent},
@@ -18,7 +20,8 @@ const appRoutes : Routes=[
     {path:'cart', canActivate:[AuthService], component:CartPageComponent},
     {path:'profile', canActivate:[AuthService], component:MyProfileComponent},
     {path:'register',component:RegisterPageComponent},
-    {path:'registerbuy',component:RegisterBuyPageComponent}
+    {path:'registerbuy',component:RegisterBuyPageComponent},
+    {path:'markup', component:MarkupPageComponent}
 ];
 
 //export const RouterProviders: any[] = [];

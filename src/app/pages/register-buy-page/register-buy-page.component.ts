@@ -1,21 +1,35 @@
 import { Component, OnInit } from '@angular/core';
 import { Validators, FormBuilder, FormGroup } from '@angular/forms';
+import { Router } from '@angular/router';
+
+import { CustomerReseller } from './customerreseller';
+import { CustomerBilling } from './customerBilling';
+import { CustomerMicrosoft } from './customerMicrosoft';
 import { CustomValidator } from '../../validators/custom.validator';
 import { DataService } from '../../services/data.service';
 import { Ui } from '../../utils/ui';
-import { Router } from '@angular/router';
+
 
 @Component({
   selector: 'app-register-buy-page',
-  templateUrl: './register-buy-page.component.html'  ,
+  templateUrl: './register-buy-page.component.html',
   providers: [Ui, DataService]
 })
 export class RegisterBuyPageComponent implements OnInit {
-  public form: FormGroup; 
+  public form: FormGroup;
   public errors: any[] = [];
 
-  public chkIsento: boolean = false;
-  private docType: boolean = true;
+  public chkIsento_faturamento: boolean = false;
+  public chkIsento_microsoft: boolean = false;
+  private docType_faturamento: boolean = false;
+  private docType_microsoft: boolean = true;
+
+  private faturarPara: boolean=true;
+  private contaMicrosoftPara: number;
+
+  private customerReseller: CustomerReseller;
+  private customerBilling: CustomerBilling;
+  private customerMicrosoft: CustomerMicrosoft;
 
   constructor(
     private fb: FormBuilder,
@@ -233,14 +247,15 @@ export class RegisterBuyPageComponent implements OnInit {
         Validators.maxLength(2),
         Validators.required
       ])]
-
     });
   }
 
 
   ngOnInit() {
     //this.form.controls.endereco.patchValue('teste');    
-    this.chkIsento
+    this.getCustomerReseller();    
+    this.customerBilling = {} as CustomerBilling;
+    this.customerMicrosoft = {} as CustomerMicrosoft;  
   }
 
   submit() {
@@ -252,33 +267,83 @@ export class RegisterBuyPageComponent implements OnInit {
     });
   }
 
-  getCep(cep) {
+  InscricaoCheck(type) {
+    if (type == 'faturamento') {
+      this.chkIsento_faturamento = !this.chkIsento_faturamento;
+
+      if (this.chkIsento_faturamento)
+        this.form.controls.faturamento_inscricaoEstadual.patchValue('Isento');
+      else
+        this.form.controls.faturamento_inscricaoEstadual.patchValue('');
+    } else {
+      this.chkIsento_microsoft = !this.chkIsento_microsoft;
+
+      if (this.chkIsento_microsoft)
+        this.form.controls.microsoft_inscricaoEstadual.patchValue('Isento');
+      else
+        this.form.controls.microsoft_inscricaoEstadual.patchValue('');
+    }
+  }
+
+  FaturarPara(val){
+    if(val =="0"){
+      this.customerBilling = this.customerReseller;
+      this.faturarPara= !this.faturarPara;
+    }      
+    else{
+      this.customerBilling = {} as CustomerBilling;
+      this.faturarPara= !this.faturarPara;
+    }
+  }
+
+  MicrosoftPara(val){
+    if(val =="0")
+      this.customerMicrosoft = this.customerReseller;
+    else if(val =="1")
+      this.customerMicrosoft = {} as CustomerMicrosoft;
+    else if(val == "2"){
+      this.customerMicrosoft = this.customerBilling;
+    }
+  }
+
+  TypePerson(type) {
+    //console.log(!this.docType);
+    if (type == 'faturamento')
+      this.docType_faturamento = !this.docType_faturamento;
+    else
+      this.docType_microsoft = !this.docType_microsoft;
+  }
+
+  getCep(cep, type) {
     this.dataService
       .getCep(cep)
       .subscribe((response) => {
-        this.form.controls.endereco.patchValue(response.logradouro);
-        this.form.controls.complemento.patchValue(response.complemento);
-        this.form.controls.bairro.patchValue(response.bairro);
-        this.form.controls.cidade.patchValue(response.localidade);
-        this.form.controls.estado.patchValue(response.uf);
+        this.fillDelivery(type, response);
       },
         error => {
-          this.errors = [{error:{message:"Problemas ao consultar o CEP"}}];
+          this.errors = [{ error: { message: "Problemas ao consultar o CEP" } }];
         }
       );
   }
 
-  InscricaoCheck() {
-    this.chkIsento = !this.chkIsento;
-
-    if (this.chkIsento)
-      this.form.controls.inscricaoEstadual.patchValue('Isento');
-    else
-      this.form.controls.inscricaoEstadual.patchValue('');
+  fillDelivery(type, response) {
+    if (type == 'faturamento') {
+      this.form.controls.faturamento_endereco.patchValue(response.logradouro);
+      this.form.controls.faturamento_complemento.patchValue(response.complemento);
+      this.form.controls.faturamento_bairro.patchValue(response.bairro);
+      this.form.controls.faturamento_cidade.patchValue(response.localidade);
+      this.form.controls.faturamento_estado.patchValue(response.uf);
+    } else {
+      this.form.controls.microsoft_endereco.patchValue(response.logradouro);
+      this.form.controls.microsoft_complemento.patchValue(response.complemento);
+      this.form.controls.microsoft_bairro.patchValue(response.bairro);
+      this.form.controls.microsoft_cidade.patchValue(response.localidade);
+      this.form.controls.microsoft_estado.patchValue(response.uf);
+    }
   }
 
-  TypePerson(){
-    console.log(!this.docType);
-    this.docType = !this.docType;
+  getCustomerReseller() {
+    this.customerReseller = this.dataService.getReseller();
   }
+
 }

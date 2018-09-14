@@ -3,16 +3,17 @@ import { Http, Response, Headers, RequestOptions } from '@angular/http';
 import 'rxjs/add/operator/map';
 import { Observable } from 'rxjs/Observable';
 import { environment } from '../../environments/environment';
+import { Markup } from '../pages/markup-page/markup';
 
 @Injectable()
 export class DataService {
-    private serviceUrl: string = 'http://localhost:53092/';    
-    private cepUrl: string='https://viacep.com.br/ws/';
+    private serviceUrl: string = 'http://localhost:53092/';
+    private cepUrl: string = 'https://viacep.com.br/ws/';
 
     constructor(private http: Http) { }
 
     createUser(data: any) {
-        
+
         return this.http
             .post(environment.serviceUrl + 'v1/customers', data)
             .map((res: Response) => res.json());
@@ -49,9 +50,121 @@ export class DataService {
             .map((res: Response) => res.json());
     }
 
-    getCep(cep:number){
+    getCep(cep: number) {
         return this.http
             .get(this.cepUrl + `${cep}/json/`)
-            .map((res:Response)=> res.json());
+            .map((res: Response) => res.json());
+    }
+
+    getReseller() {
+        return {
+            firstName: 'Maximiza',
+            lastName: 'teste',
+            inscricaoEstadual: '6545464',
+            companyName: 'Maximiza razao',
+            email: 'revenda@gmail.com',
+            emailPortalAdmin: 'revendaportal@gmail.com',
+            emailBoleto: 'revendaboleto@gmail.com',
+            document: '22365354000165',
+            phone: '1165354789',
+            cellphone: '11987653245',
+            cep: '06194020',
+            endereco: 'rua josé gasparini',
+            numero: '53',
+            complemento: 'osram',
+            bairro: 'km 18',
+            cidade: 'osasco',
+            estado: 'SP'
+        };
+    }
+
+    getMarkups() {       
+        var markups : Markup[] = [];
+        markups.push({
+            Visible: false,
+            CategoryName: "Office 365",
+            PartNumber: "O365_BUS_PREMIUM",
+            Name: "Office 365 Business Premium",
+            BasePriceBRL: 51.83,
+            MarkupPercentual: 0.00,
+            PriceSale: 51.83,
+            EffectivePrice: 0.00
+        },
+        {
+            Visible: false,
+            CategoryName: "Office 365",
+            PartNumber: "OFFICESUBSCRIPTION",
+            Name: "Office 365 Pro Plus",
+            BasePriceBRL: 49.75,
+            MarkupPercentual: 0.00,
+            PriceSale: 49.75,
+            EffectivePrice: 0.00
+        },
+        {
+            Visible: false,
+            CategoryName: "Serviços",
+            PartNumber: "IMP-365",
+            Name: "Implementação Office 365 com pagamento à vista",
+            BasePriceBRL: 77.70,
+            MarkupPercentual: 0.00,
+            PriceSale: 77.70,
+            EffectivePrice: 0.00
+        },
+        {
+            Visible: false,
+            CategoryName: "Soluções",
+            PartNumber: "PREMIUM-MIGD-DIR",
+            Name: "Office 365 Premium com migrações de e-mail e dados e senhas sincronizadas",
+            BasePriceBRL: 256.12,
+            MarkupPercentual: 0.00,
+            PriceSale: 45.12,
+            EffectivePrice: 0.00
+        },
+        {
+            Visible: false,
+            CategoryName: "Azure",
+            PartNumber: "VIR-MAC-A2",
+            Name: "Máquina Virtual P",
+            BasePriceBRL: 56.20,
+            MarkupPercentual: 0.00,
+            PriceSale: 56.20,
+            EffectivePrice: 1.07
+        });
+
+        return markups;
+
+        // return
+        // [
+        //     {
+        //         Visible: false,
+        //         CategoryName: "Office 365",
+        //         PartNumber: "O365_BUS_PREMIUM",
+        //         Name: "Office 365 Business Premium",
+        //         BasePriceBRL: 51.83,
+        //         MarkupPercentual: 0.00,
+        //         PriceSale: 51.83,
+        //         EffectivePrice: 0.00
+        //     },
+        //     {
+        //         Visible: false,
+        //         CategoryName: "Office 365",
+        //         PartNumber: "OFFICESUBSCRIPTION",
+        //         Name: "Office 365 Pro Plus",
+        //         BasePriceBRL: 49.75,
+        //         MarkupPercentual: 0.00,
+        //         PriceSale: 49.75,
+        //         EffectivePrice: 0.00
+        //     },
+        //     {
+        //         Visible: false,
+        //         CategoryName: "Serviços",
+        //         PartNumber: "IMP-365",
+        //         Name: "Implementação Office 365 com pagamento à vista",
+        //         BasePriceBRL: 77.70,
+        //         MarkupPercentual: 0.00,
+        //         PriceSale: 77.70,
+        //         EffectivePrice: 0.00
+        //     }
+        // ];
     }
 }

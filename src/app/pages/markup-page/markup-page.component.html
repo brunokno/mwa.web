@@ -1,0 +1,54 @@
+<form [formGroup]="form">
+  <table class="table is-striped">
+    <thead>
+      <tr>
+        <th>Ativo</th>
+        <th>Categoria</th>
+        <th>Part Number</th>
+        <th>Nome</th>
+        <th>Pr.BRL</th>
+        <th>Markup Perc.</th>
+        <th>Pr.Venda</th>
+        <th>Pr.Efetivo</th>
+      </tr>
+    </thead>
+    <tbody>
+
+      <!--*ngFor="let markup of form.get('items').controls; let i = index">--->
+      <tr formArrayName="items" 
+          *ngFor="let markup of markups; let i = index">
+        <td>
+           <input type="checkbox" [(ngModel)]="markups[i]" [formControlName]="i"  > <!-- {{ markups[i].Visible }}  -->
+        </td>
+        <td>
+          <!-- <label [formControlName]="i"> {{ items[i].Description }} </label> -->
+          {{ markups[i].CategoryName }}
+        </td>
+        <td>
+          {{ markups[i].PartNumber }}          
+        </td>
+        <td>
+          {{ markups[i].Name }}
+        </td>
+        <td>
+          {{ markups[i].BasePriceBRL }}
+        </td>
+        <td>
+          <input type="text"  [(value)]=" markups[i].MarkupPercentual " (blur)="apply($event.target.value,i)">
+        </td>
+        <td>
+          <input type="text"   [(value)]="markups[i].PriceSale ">
+        </td>
+        <td>
+          <input type="text"  [(value)]=" markups[i].EffectivePrice ">
+        </td>
+      </tr>
+
+    </tbody>
+  </table>
+</form>
+<br>
+<button (click)="submit()" class="button is-primary is-large is-right ">Salvar</button>
+
+<br>
+<app-form-debug [form]="form"></app-form-debug>

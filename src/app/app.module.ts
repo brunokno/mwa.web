@@ -13,6 +13,7 @@ import { AppComponent } from './app.component';
 import { FooterComponent } from './components/shared/footer/footer.component';
 import { HeadbarComponent } from './components/shared/headbar/headbar.component';
 import { SubMenuComponent } from './components/shared/sub-menu/sub-menu.component';
+import { FormDebugComponent } from './components/shared/form-debug/form-debug-component';
 
 //Pages
 import { HomePageComponent } from './pages/home-page/home-page.component';
@@ -22,13 +23,13 @@ import { CartPageComponent } from './pages/cart-page/cart-page.component';
 import { ProductListComponent } from './components/product-list/product-list.component';
 import { MyProfileComponent } from './pages/my-profile/my-profile.component';
 import { RegisterPageComponent } from './pages/register-page/register-page.component';
+import { RegisterBuyPageComponent } from './pages/register-buy-page/register-buy-page.component';
+import { MarkupPageComponent } from './pages/markup-page/markup-page.component';
 
 import { CartService } from './services/cart.service';
 import { AuthService } from './services/auth.service';
 
 import { NumberDirective } from './directives/number.directive';
-import { RegisterBuyPageComponent } from './pages/register-buy-page/register-buy-page.component';
-
 
 @NgModule({
   declarations: [
@@ -44,7 +45,9 @@ import { RegisterBuyPageComponent } from './pages/register-buy-page/register-buy
     ProductListComponent,
     MyProfileComponent,
     RegisterPageComponent,
-    RegisterBuyPageComponent
+    RegisterBuyPageComponent,
+    MarkupPageComponent,
+    FormDebugComponent
   ],
   imports: [
     BrowserModule,

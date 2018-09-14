@@ -1,0 +1,19 @@
+export interface CustomerReseller{
+    firstName:string
+    lastName:string
+    inscricaoEstadual:string
+    companyName:string
+    email:string
+    emailPortalAdmin:string
+    emailBoleto:string
+    document:string    
+    phone:string
+    cellphone:string
+    cep:string
+    endereco:string
+    numero:string
+    complemento:string
+    bairro:string
+    cidade:string
+    estado:string
+}
