@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { DataService } from '../../services/data.service';
 import { CartService } from '../../services/cart.service';
+// import {NgbPaginationModule, NgbAlertModule} from '@ng-bootstrap/ng-bootstrap';
 
 @Component({
   selector: 'app-product-list',
@@ -8,7 +9,8 @@ import { CartService } from '../../services/cart.service';
   providers: [DataService]
 })
 export class ProductListComponent implements OnInit {
-  public products: any[];
+  public products:any[];
+
   constructor(private dataService: DataService, private cartService: CartService) { }
 
   ngOnInit() {

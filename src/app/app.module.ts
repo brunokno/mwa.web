@@ -43,8 +43,14 @@ import { InternalServerErrorComponent } from './errors/internal-server-error/int
 import { ServiceUnavailableComponent } from './errors/service-unavailable/service-unavailable.component';
 import { UnauthorizedComponent } from './errors/unauthorized/unauthorized.component';
 
+// npm install --save @ng-bootstrap/ng-bootstrap
+// import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
+// import {NgbPaginationModule, NgbAlertModule} from '@ng-bootstrap/ng-bootstrap';
+import { DemoCarouseBasicComponent } from './components/carousel/carousel.component';
 
-
+// https://ngx-universal.herokuapp.com/carousel#basic
+// npm install ngx-bootstrap
+ import { CarouselModule } from 'ngx-bootstrap/carousel';
 
 @NgModule({
   declarations: [
@@ -68,7 +74,8 @@ import { UnauthorizedComponent } from './errors/unauthorized/unauthorized.compon
     NotFoundComponent,
     InternalServerErrorComponent,
     ServiceUnavailableComponent,
-    UnauthorizedComponent
+    UnauthorizedComponent,
+    DemoCarouseBasicComponent
   ],
   imports: [
     BrowserModule,
@@ -77,7 +84,9 @@ import { UnauthorizedComponent } from './errors/unauthorized/unauthorized.compon
     HttpModule,
     AppRouting,
     TextMaskModule,
-    HttpClientModule
+    HttpClientModule,
+    // NgbModule, NgbPaginationModule, NgbAlertModule
+    CarouselModule.forRoot()
   ],
   providers: [
     CartService, 

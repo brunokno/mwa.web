@@ -12,7 +12,7 @@ export class DataService {
     private cepUrl: string = 'https://viacep.com.br/ws/';
 
     constructor(
-        //private http: Http, //Angular 2
+        private http: Http, //Angular 2
         private _http: HttpClient) { }
 
     createUser(data: any) {
@@ -23,7 +23,8 @@ export class DataService {
 
         return this._http
             .post(environment.serviceUrl + 'v1/customers', data)
-            .map((res: Response) => res.json());
+            //.map((res: Response) => res.json())
+            ;
     }
 
     authenticate(data: any) {
@@ -41,7 +42,7 @@ export class DataService {
             .set('password', data.password);
         
         return this._http
-            .post(this.serviceUrl + 'v1/authenticate',
+            .post<any>(this.serviceUrl + 'v1/authenticate',
                 body,
                 {
                     headers:new HttpHeaders()
@@ -51,17 +52,18 @@ export class DataService {
     }
 
     getProducts() {
-        var token = localStorage.getItem('mws.token');
-        let headers = new Headers({ 'Content-Type': 'application/json' });
-        headers.append('Authorization', `Bearer ${token}`); Headers
-        let options = new RequestOptions({ headers: headers });
+        //Angular 2 e Http
+        // var token = localStorage.getItem('mws.token');
+        // let headers = new Headers({ 'Content-Type': 'application/json' });
+        // headers.append('Authorization', `Bearer ${token}`); Headers
+        // let options = new RequestOptions({ headers: headers });
         // return this.http
         //     .get(this.serviceUrl + 'v1/products', options)
         //     .map((res: Response) => res.json());
 
-
+        //Angular 6 e HttpClient
         return this._http
-            .get(this.serviceUrl + 'v1/products',              
+            .get<any[]>(this.serviceUrl + 'v1/products',              
                 {
                     headers:new HttpHeaders()
                         .set('Content-Type', 'application/json')                
@@ -69,14 +71,16 @@ export class DataService {
     }
 
     createOrder(data: any) {
-        var token = localStorage.getItem('mws.token');
-        let headers = new Headers({ 'Content-Type': 'application/json' });
-        headers.append('Authorization', `Bearer ${token}`); Headers
-        let options = new RequestOptions({ headers: headers });
+        //Angular 2 e Http
+        // var token = localStorage.getItem('mws.token');
+        // let headers = new Headers({ 'Content-Type': 'application/json' });
+        // headers.append('Authorization', `Bearer ${token}`); Headers
+        // let options = new RequestOptions({ headers: headers });
         // return this.http
         //     .post(this.serviceUrl + 'v1/orders', data, options)
         //     .map((res: Response) => res.json());
 
+        //Angular 6 e HttpClient
         return this._http
             .post(this.serviceUrl + 'v1/orders', 
             data, 
@@ -94,9 +98,10 @@ export class DataService {
             const validacep = /^[0-9]{8}$/;
 
             if (validacep.test(cep)) {
-                return this._http
+                return this.http
                 .get(this.cepUrl + `${cep}/json/`)
-                .map((res: Response) => res.json());
+                .map((res: Response) => res.json())
+                ;
             }
         }
     }

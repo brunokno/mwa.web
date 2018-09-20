@@ -26,8 +26,18 @@ export class InterceptService  implements HttpInterceptor {
 
     	// modify request
 	    request = request.clone({
+				// withCredentials: true, 
+				// headers: request.headers
+				// 	.set('Content-Type', 'application/json')
+				// 	.set('Access-Control-Allow-Headers', 'Origin, Content-Type, X-Auth-Token, content-type')
+				// 	.set('Access-Control-Allow-Methods', 'GET,PUT,POST,DELETE,PATCH,OPTIONS')                        
+				// 	.set("Access-Control-Allow-Origin", "Origin")
+				// 	.set("Access-Control-Allow-Headers",  "Origin, X-Requested-With, Content-Type, Accept, Authorization" )
+				// 	.set("Access-Control-Allow-Methods",  "GET, POST, PUT, DELETE, OPTIONS" )
+				// 	.set("Access-Control-Allow-Credentials",  "true" )
+				// ,
 	       setHeaders: {
-	         Authorization: `Bearer ${localStorage.getItem('mws.token')}`
+	         Authorization: `Bearer ${localStorage.getItem('mws.token')}`,
 	       }
 	    });
 	   
@@ -50,9 +60,9 @@ export class InterceptService  implements HttpInterceptor {
 							case 0:
 								this.router.navigate(['serviceunavailable']);
 								break;
-							case 401:
-								this.router.navigate(['unauthorized']);
-								break;
+							// case 401:
+							// 	this.router.navigate(['unauthorized']);
+							// 	break;
 							case 404:
 								this.router.navigate(['notfound']);
 								break;
