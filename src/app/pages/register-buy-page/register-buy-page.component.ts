@@ -8,6 +8,7 @@ import { CustomerMicrosoft } from './customerMicrosoft';
 import { CustomValidator } from '../../validators/custom.validator';
 import { DataService } from '../../services/data.service';
 import { Ui } from '../../utils/ui';
+import { BaseFormComponent } from '../../components/shared/base-form/base-form.component';
 
 
 @Component({
@@ -15,13 +16,13 @@ import { Ui } from '../../utils/ui';
   templateUrl: './register-buy-page.component.html',
   providers: [Ui, DataService]
 })
-export class RegisterBuyPageComponent implements OnInit {
-  public form: FormGroup;
+export class RegisterBuyPageComponent extends BaseFormComponent implements OnInit {
+  //public form: FormGroup;
   public errors: any[] = [];
 
   public chkIsento_faturamento: boolean = false;
   public chkIsento_microsoft: boolean = false;
-  private docType_faturamento: boolean = false;
+  private docType_faturamento: boolean = true;
   private docType_microsoft: boolean = true;
 
   private faturarPara: boolean=true;
@@ -31,12 +32,29 @@ export class RegisterBuyPageComponent implements OnInit {
   private customerBilling: CustomerBilling;
   private customerMicrosoft: CustomerMicrosoft;
 
+  //Masks
+  public phoneMask = ['(', /[1-9]/, /\d/, ')', ' ', /\d/ , /\d/ , /\d/, /\d/, /\d/, '-', /\d/, /\d/, /\d/, /\d/];
+  public rgMask = [ /\d/ , /\d/ , /\d/, /\d/, /\d/, /\d/, /\d/, /\d/, '-', /\d/];
+  public cpfMask = [ /\d/ , /\d/, /\d/, '.', /\d/, /\d/, /\d/, '.', /\d/ , /\d/, /\d/, '-', /\d/, /\d/,];
+  public cnpjMask = [ /\d/ , /\d/, '.', /\d/, /\d/, /\d/, '.', /\d/ , /\d/, /\d/, '/', /\d/, /\d/,/\d/, /\d/, '-', /\d/, /\d/,];
+  public cepMask = [/\d/ , /\d/, /\d/, /\d/, /\d/, '-', /\d/, /\d/, /\d/];
+    
   constructor(
     private fb: FormBuilder,
     private ui: Ui,
     private dataService: DataService,
     private router: Router
   ) {
+    super();
+  }
+
+
+  ngOnInit() {
+    //this.form.controls.endereco.patchValue('teste');    
+    this.getCustomerReseller();    
+    this.customerBilling = {} as CustomerBilling;
+    this.customerMicrosoft = {} as CustomerMicrosoft;  
+
     this.form = this.fb.group({
       faturamento_firstName: ['', Validators.compose([
         Validators.minLength(3),
@@ -58,32 +76,15 @@ export class RegisterBuyPageComponent implements OnInit {
         Validators.maxLength(40),
         Validators.required
       ])],
-      faturamento_email: ['', Validators.compose([
-        Validators.minLength(5),
-        Validators.maxLength(160),
-        Validators.required,
-        CustomValidator.EmailValidator
-      ])],
-      faturamento_emailPortalAdmin: ['', Validators.compose([
-        Validators.minLength(5),
-        Validators.maxLength(160),
-        Validators.required,
-        CustomValidator.EmailValidator
-      ])],
-      faturamento_emailBoleto: ['', Validators.compose([
+      faturamento_email: ['',Validators.compose([
         Validators.minLength(5),
         Validators.maxLength(160),
         Validators.required,
         CustomValidator.EmailValidator
       ])],
       faturamento_document: ['', Validators.compose([
-        Validators.minLength(11),
-        Validators.maxLength(14),
-        Validators.required
-      ])],
-      faturamento_username: ['', Validators.compose([
-        Validators.minLength(6),
-        Validators.maxLength(20),
+        Validators.minLength(15),
+        Validators.maxLength(18),
         Validators.required
       ])],
       faturamento_password: ['', Validators.compose([
@@ -91,57 +92,40 @@ export class RegisterBuyPageComponent implements OnInit {
         Validators.maxLength(20),
         Validators.required
       ])],
-      faturamento_confirmPassword: ['', Validators.compose([
-        Validators.minLength(6),
-        Validators.maxLength(20),
-        Validators.required
-      ])],
+      faturamento_confirmPassword: ['', 
+        [CustomValidator.equalsTo('faturamento_password')]
+      ],
       faturamento_phone: ['', Validators.compose([
-        Validators.minLength(10),
-        Validators.maxLength(11),
+        Validators.minLength(14),
+        Validators.maxLength(15),
         Validators.required
       ])],
       faturamento_cellphone: ['', Validators.compose([
-        Validators.minLength(10),
-        Validators.maxLength(11),
+        Validators.minLength(14),
+        Validators.maxLength(15),
         Validators.required
       ])],
-      faturamento_cep: ['', Validators.compose([
-        Validators.minLength(7),
-        Validators.maxLength(8),
+      faturamento_cep: ['', [
+          Validators.required 
+          //,CustomValidator.cepValidator
+        ]
+      ],
+      faturamento_endereco: ['', 
         Validators.required
-      ])],
-      faturamento_endereco: ['', Validators.compose([
-        Validators.minLength(6),
-        Validators.maxLength(40),
+      ],
+      faturamento_numero: ['', 
         Validators.required
-      ])],
-      faturamento_numero: ['', Validators.compose([
-        Validators.minLength(1),
-        Validators.maxLength(20),
+      ],
+      faturamento_complemento: [''],
+      faturamento_bairro: ['', 
         Validators.required
-      ])],
-      faturamento_complemento: ['', Validators.compose([
-        Validators.minLength(1),
-        Validators.maxLength(20),
+      ],
+      faturamento_cidade: ['', 
         Validators.required
-      ])],
-      faturamento_bairro: ['', Validators.compose([
-        Validators.minLength(1),
-        Validators.maxLength(40),
+      ],
+      faturamento_estado: ['', 
         Validators.required
-      ])],
-      faturamento_cidade: ['', Validators.compose([
-        Validators.minLength(1),
-        Validators.maxLength(40),
-        Validators.required
-      ])],
-      faturamento_estado: ['', Validators.compose([
-        Validators.minLength(26),
-        Validators.maxLength(2),
-        Validators.required
-      ])],
-
+      ],
 
       //Microsoft
       microsoft_firstName: ['', Validators.compose([
@@ -164,32 +148,15 @@ export class RegisterBuyPageComponent implements OnInit {
         Validators.maxLength(40),
         Validators.required
       ])],
-      microsoft_email: ['', Validators.compose([
-        Validators.minLength(5),
-        Validators.maxLength(160),
-        Validators.required,
-        CustomValidator.EmailValidator
-      ])],
-      microsoft_emailPortalAdmin: ['', Validators.compose([
-        Validators.minLength(5),
-        Validators.maxLength(160),
-        Validators.required,
-        CustomValidator.EmailValidator
-      ])],
-      microsoft_emailBoleto: ['', Validators.compose([
+      microsoft_email: ['',Validators.compose([
         Validators.minLength(5),
         Validators.maxLength(160),
         Validators.required,
         CustomValidator.EmailValidator
       ])],
       microsoft_document: ['', Validators.compose([
-        Validators.minLength(11),
-        Validators.maxLength(14),
-        Validators.required
-      ])],
-      microsoft_username: ['', Validators.compose([
-        Validators.minLength(6),
-        Validators.maxLength(20),
+        Validators.minLength(15),
+        Validators.maxLength(18),
         Validators.required
       ])],
       microsoft_password: ['', Validators.compose([
@@ -197,66 +164,42 @@ export class RegisterBuyPageComponent implements OnInit {
         Validators.maxLength(20),
         Validators.required
       ])],
-      microsoft_confirmPassword: ['', Validators.compose([
-        Validators.minLength(6),
-        Validators.maxLength(20),
-        Validators.required
-      ])],
+      microsoft_confirmPassword: ['', 
+        [CustomValidator.equalsTo('microsoft_password')]
+      ],
       microsoft_phone: ['', Validators.compose([
-        Validators.minLength(10),
-        Validators.maxLength(11),
+        Validators.minLength(14),
+        Validators.maxLength(15),
         Validators.required
       ])],
       microsoft_cellphone: ['', Validators.compose([
-        Validators.minLength(10),
-        Validators.maxLength(11),
+        Validators.minLength(14),
+        Validators.maxLength(15),
         Validators.required
       ])],
-      microsoft_cep: ['', Validators.compose([
-        Validators.minLength(7),
-        Validators.maxLength(8),
+      microsoft_cep: ['', [
+          Validators.required
+          //,CustomValidator.cepValidator
+        ]
+      ],
+      microsoft_endereco: ['', 
         Validators.required
-      ])],
-      microsoft_endereco: ['', Validators.compose([
-        Validators.minLength(6),
-        Validators.maxLength(40),
+      ],
+      microsoft_numero: ['', 
         Validators.required
-      ])],
-      microsoft_numero: ['', Validators.compose([
-        Validators.minLength(1),
-        Validators.maxLength(20),
+      ],
+      microsoft_complemento: [''],
+      microsoft_bairro: ['',
         Validators.required
-      ])],
-      microsoft_complemento: ['', Validators.compose([
-        Validators.minLength(1),
-        Validators.maxLength(20),
+      ],
+      microsoft_cidade: ['',
         Validators.required
-      ])],
-      microsoft_bairro: ['', Validators.compose([
-        Validators.minLength(1),
-        Validators.maxLength(40),
+      ],
+      microsoft_estado: ['', 
         Validators.required
-      ])],
-      microsoft_cidade: ['', Validators.compose([
-        Validators.minLength(1),
-        Validators.maxLength(40),
-        Validators.required
-      ])],
-      microsoft_estado: ['', Validators.compose([
-        Validators.minLength(26),
-        Validators.maxLength(2),
-        Validators.required
-      ])]
+      ]
     });
-  }
-
-
-  ngOnInit() {
-    //this.form.controls.endereco.patchValue('teste');    
-    this.getCustomerReseller();    
-    this.customerBilling = {} as CustomerBilling;
-    this.customerMicrosoft = {} as CustomerMicrosoft;  
-  }
+  }  
 
   submit() {
     this.dataService.createUser(this.form.value).subscribe(result => {
@@ -288,11 +231,11 @@ export class RegisterBuyPageComponent implements OnInit {
   FaturarPara(val){
     if(val =="0"){
       this.customerBilling = this.customerReseller;
-      this.faturarPara= !this.faturarPara;
+      this.faturarPara= false;
     }      
     else{
       this.customerBilling = {} as CustomerBilling;
-      this.faturarPara= !this.faturarPara;
+      this.faturarPara= true;
     }
   }
 
@@ -315,15 +258,16 @@ export class RegisterBuyPageComponent implements OnInit {
   }
 
   getCep(cep, type) {
-    this.dataService
+    if (cep != null && cep !== '') {
+      this.dataService
       .getCep(cep)
       .subscribe((response) => {
         this.fillDelivery(type, response);
       },
         error => {
           this.errors = [{ error: { message: "Problemas ao consultar o CEP" } }];
-        }
-      );
+        });
+    }
   }
 
   fillDelivery(type, response) {
@@ -344,6 +288,11 @@ export class RegisterBuyPageComponent implements OnInit {
 
   getCustomerReseller() {
     this.customerReseller = this.dataService.getReseller();
+  }
+
+  validateEmail(email) {
+    var re = /^(([^<>()\[\]\.,;:\s@@\"]+(\.[^<>()\[\]\.,;:\s@@\"]+)*)|(\".+\"))@@(([^<>()[\]\.,;:\s@@\"]+\.)+[^<>()[\]\.,;:\s@@\"]{2,})$/i;
+    return re.test(email);
   }
 
 }

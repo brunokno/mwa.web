@@ -4,18 +4,25 @@ import { CustomValidator } from '../../validators/custom.validator';
 import { DataService } from '../../services/data.service';
 import { Ui } from '../../utils/ui';
 import { Router } from '@angular/router';
+import { BaseFormComponent } from '../../components/shared/base-form/base-form.component';
 
 @Component({
   selector: 'app-register-page',
   templateUrl: './register-page.component.html',
   providers: [Ui, DataService]
 })
-export class RegisterPageComponent implements OnInit {
-  public form: FormGroup;
+export class RegisterPageComponent extends BaseFormComponent  implements OnInit {
   public errors: any[] = [];
 
   public chkIsento: boolean = false;
   private docType: boolean = true;
+ 
+  //Masks
+  public phoneMask = ['(', /[1-9]/, /\d/, ')', ' ', /\d/ , /\d/ , /\d/, /\d/, /\d/, '-', /\d/, /\d/, /\d/, /\d/];
+  public rgMask = [ /\d/ , /\d/ , /\d/, /\d/, /\d/, /\d/, /\d/, /\d/, '-', /\d/];
+  public cpfMask = [ /\d/ , /\d/, /\d/, '.', /\d/, /\d/, /\d/, '.', /\d/ , /\d/, /\d/, '-', /\d/, /\d/,];
+  public cnpjMask = [ /\d/ , /\d/, '.', /\d/, /\d/, /\d/, '.', /\d/ , /\d/, /\d/, '/', /\d/, /\d/,/\d/, /\d/, '-', /\d/, /\d/,];
+  public cepMask = [/\d/ , /\d/, /\d/, /\d/, /\d/, '-', /\d/, /\d/, /\d/];
 
   constructor(
     private fb: FormBuilder,
@@ -23,6 +30,10 @@ export class RegisterPageComponent implements OnInit {
     private dataService: DataService,
     private router: Router
   ) {
+    super();
+  }
+
+  ngOnInit() {
     this.form = this.fb.group({
       firstName: ['', Validators.compose([
         Validators.minLength(3),
@@ -50,26 +61,9 @@ export class RegisterPageComponent implements OnInit {
         Validators.required,
         CustomValidator.EmailValidator
       ])],
-      emailPortalAdmin: ['', Validators.compose([
-        Validators.minLength(5),
-        Validators.maxLength(160),
-        Validators.required,
-        CustomValidator.EmailValidator
-      ])],
-      emailBoleto: ['', Validators.compose([
-        Validators.minLength(5),
-        Validators.maxLength(160),
-        Validators.required,
-        CustomValidator.EmailValidator
-      ])],
       document: ['', Validators.compose([
-        Validators.minLength(11),
-        Validators.maxLength(14),
-        Validators.required
-      ])],
-      username: ['', Validators.compose([
-        Validators.minLength(6),
-        Validators.maxLength(20),
+        Validators.minLength(15),
+        Validators.maxLength(18),
         Validators.required
       ])],
       password: ['', Validators.compose([
@@ -77,63 +71,42 @@ export class RegisterPageComponent implements OnInit {
         Validators.maxLength(20),
         Validators.required
       ])],
-      confirmPassword: ['', Validators.compose([
-        Validators.minLength(6),
-        Validators.maxLength(20),
-        Validators.required
-      ])],
+      confirmPassword: ['', 
+      [CustomValidator.equalsTo('password')]
+      ],
       phone: ['', Validators.compose([
-        Validators.minLength(10),
-        Validators.maxLength(11),
+        Validators.minLength(14),
+        Validators.maxLength(15),
         Validators.required
       ])],
       cellphone: ['', Validators.compose([
-        Validators.minLength(10),
-        Validators.maxLength(11),
+        Validators.minLength(14),
+        Validators.maxLength(15),
         Validators.required
       ])],
-      cep: ['', Validators.compose([
-        Validators.minLength(7),
-        Validators.maxLength(8),
+      cep: ['', [
+          Validators.required
+          //CustomValidator.cepValidator
+        ]
+      ],
+      endereco: ['', 
         Validators.required
-      ])],
-      endereco: ['', Validators.compose([
-        Validators.minLength(6),
-        Validators.maxLength(40),
+      ],
+      numero: ['', 
         Validators.required
-      ])],
-      numero: ['', Validators.compose([
-        Validators.minLength(1),
-        Validators.maxLength(20),
+      ],
+      complemento: [''],
+      bairro: ['', 
         Validators.required
-      ])],
-      complemento: ['', Validators.compose([
-        Validators.minLength(1),
-        Validators.maxLength(20),
+      ],
+      cidade: ['', 
         Validators.required
-      ])],
-      bairro: ['', Validators.compose([
-        Validators.minLength(1),
-        Validators.maxLength(40),
+      ],
+      estado: ['', 
         Validators.required
-      ])],
-      cidade: ['', Validators.compose([
-        Validators.minLength(1),
-        Validators.maxLength(40),
-        Validators.required
-      ])],
-      estado: ['', Validators.compose([
-        Validators.minLength(26),
-        Validators.maxLength(2),
-        Validators.required
-      ])],
+      ],
     });
-  }
 
-
-  ngOnInit() {
-    //this.form.controls.endereco.patchValue('teste');    
-    this.chkIsento
   }
 
   submit() {
@@ -174,4 +147,19 @@ export class RegisterPageComponent implements OnInit {
     console.log(!this.docType);
     this.docType = !this.docType;
   }
+
+  // private doc;
+  // cpfcnpjmask (){
+  //   var numbers = this.doc.match(/\d/g);
+  //   var numberLength = 0;
+  //   if (numbers) {
+  //     numberLength = numbers.join('').length;
+  //   }
+  //   if (numberLength <= 11) {
+  //     return [/[0-9]/, /[0-9]/, /[0-9]/, '.', /[0-9]/, /[0-9]/, /[0-9]/, '.', /[0-9]/, /[0-9]/, /[0-9]/, '-', /[0-9]/, /[0-9]/];
+  //   } else {
+  //     return [/[0-9]/, /[0-9]/, '.', /[0-9]/, /[0-9]/, /[0-9]/, '.', /[0-9]/, /[0-9]/, /[0-9]/, '/', /[0-9]/, /[0-9]/, /[0-9]/,  /[0-9]/, '-', /[0-9]/, /[0-9]/];
+  //   }
+  // }
+
 }

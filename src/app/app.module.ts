@@ -14,6 +14,8 @@ import { FooterComponent } from './components/shared/footer/footer.component';
 import { HeadbarComponent } from './components/shared/headbar/headbar.component';
 import { SubMenuComponent } from './components/shared/sub-menu/sub-menu.component';
 import { FormDebugComponent } from './components/shared/form-debug/form-debug-component';
+import { ErrorMsgComponent } from './components/shared/error-msg/error-msg.component';
+import { CampoControlErroComponent } from './components/shared/campo-control-erro/campo-control-erro.component';
 
 //Pages
 import { HomePageComponent } from './pages/home-page/home-page.component';
@@ -26,10 +28,23 @@ import { RegisterPageComponent } from './pages/register-page/register-page.compo
 import { RegisterBuyPageComponent } from './pages/register-buy-page/register-buy-page.component';
 import { MarkupPageComponent } from './pages/markup-page/markup-page.component';
 
+//Services
 import { CartService } from './services/cart.service';
 import { AuthService } from './services/auth.service';
+import { InterceptService} from './services/intercept.service';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 
+//Directives
 import { NumberDirective } from './directives/number.directive';
+
+import { TextMaskModule } from 'angular2-text-mask';
+import { NotFoundComponent } from './errors/not-found/not-found.component';
+import { InternalServerErrorComponent } from './errors/internal-server-error/internal-server-error.component';
+import { ServiceUnavailableComponent } from './errors/service-unavailable/service-unavailable.component';
+import { UnauthorizedComponent } from './errors/unauthorized/unauthorized.component';
+
+
+
 
 @NgModule({
   declarations: [
@@ -47,16 +62,33 @@ import { NumberDirective } from './directives/number.directive';
     RegisterPageComponent,
     RegisterBuyPageComponent,
     MarkupPageComponent,
-    FormDebugComponent
+    FormDebugComponent,
+    ErrorMsgComponent,
+    CampoControlErroComponent,
+    NotFoundComponent,
+    InternalServerErrorComponent,
+    ServiceUnavailableComponent,
+    UnauthorizedComponent
   ],
   imports: [
     BrowserModule,
     FormsModule,
     ReactiveFormsModule,
     HttpModule,
-    AppRouting
+    AppRouting,
+    TextMaskModule,
+    HttpClientModule
   ],
-  providers: [CartService, AuthService],
+  providers: [
+    CartService, 
+    AuthService,
+    InterceptService,
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: InterceptService,
+      multi: true
+    }
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

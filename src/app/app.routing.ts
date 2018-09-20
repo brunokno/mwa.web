@@ -11,6 +11,10 @@ import { RegisterBuyPageComponent } from './pages/register-buy-page/register-buy
 import { MarkupPageComponent } from './pages/markup-page/markup-page.component';
 
 import { AuthService } from './services/auth.service';
+import { ServiceUnavailableComponent } from './errors/service-unavailable/service-unavailable.component';
+import { NotFoundComponent } from './errors/not-found/not-found.component';
+import { InternalServerErrorComponent } from './errors/internal-server-error/internal-server-error.component';
+import { UnauthorizedComponent } from './errors/unauthorized/unauthorized.component';
 
 
 const appRoutes : Routes=[
@@ -21,7 +25,11 @@ const appRoutes : Routes=[
     {path:'profile', canActivate:[AuthService], component:MyProfileComponent},
     {path:'register',component:RegisterPageComponent},
     {path:'registerbuy',component:RegisterBuyPageComponent},
-    {path:'markup', component:MarkupPageComponent}
+    {path:'markup', component:MarkupPageComponent},
+    {path:'serviceunavailable', component: ServiceUnavailableComponent},
+    {path:'notfound', component: NotFoundComponent},
+    {path:'internalservererror', component: InternalServerErrorComponent},
+    {path:'unauthorized', component: UnauthorizedComponent}
 ];
 
 //export const RouterProviders: any[] = [];

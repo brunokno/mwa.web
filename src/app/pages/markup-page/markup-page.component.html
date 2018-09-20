@@ -15,13 +15,19 @@
     <tbody>
 
       <!--*ngFor="let markup of form.get('items').controls; let i = index">--->
-      <tr formArrayName="items" 
-          *ngFor="let markup of markups; let i = index">
+      <!-- <tr formArrayName="items" 
+          *ngFor="let markup of markups; let i = index"
+          
+      >
         <td>
-           <input type="checkbox" [(ngModel)]="markups[i]" [formControlName]="i"  > <!-- {{ markups[i].Visible }}  -->
+           <input type="checkbox" 
+              [checked]="markups[i].Visible" 
+              [(ngModel)]="markups[i]"
+              [formControlName]="i"
+                
+           > 
         </td>
         <td>
-          <!-- <label [formControlName]="i"> {{ items[i].Description }} </label> -->
           {{ markups[i].CategoryName }}
         </td>
         <td>
@@ -34,7 +40,7 @@
           {{ markups[i].BasePriceBRL }}
         </td>
         <td>
-          <input type="text"  [(value)]=" markups[i].MarkupPercentual " (blur)="apply($event.target.value,i)">
+          <input type="text" [(value)]=" markups[i].MarkupPercentual " (blur)="apply($event.target.value,i)">
         </td>
         <td>
           <input type="text"   [(value)]="markups[i].PriceSale ">
@@ -42,13 +48,109 @@
         <td>
           <input type="text"  [(value)]=" markups[i].EffectivePrice ">
         </td>
-      </tr>
+      </tr> -->
+
+
+
+      <div formGroupName="teste">
+        <div formArrayName="items">
+          <div *ngFor="let markup of form.controls.teste.controls.items.value; let i = index">
+            <!-- {{i}} -->
+                        
+             <tr formGroupName="{{i}}">        
+                <td>
+                    <input type="checkbox" formControlName="Visible" /><br>
+                </td>
+                <td>
+                    {{markup.CategoryName}}
+                </td>
+                <td>
+                    {{markup.PartNumber}}
+                </td>
+                <td>
+                    {{markup.Name}}
+                </td>
+                <td>
+                  {{markup.BasePriceBRL}}
+                </td>
+                <td>
+                    <input 
+                      type="text" 
+                      [(value)]="markup.MarkupPercentual"
+                      formControlName="MarkupPercentual" 
+                      (blur)="apply($event.target.value,i)">
+                </td>
+                <td>
+                    <input 
+                      type="text"                       
+                      [value]="markups.teste.items[i].PriceSale" 
+                      formControlName="PriceSale" ><!--[ngModel]="markup.PriceSale"-->
+                </td>
+                <td>
+                    <input 
+                      type="text"                       
+                      [value]="markups.teste.items[i].EffectivePrice" 
+                      formControlName="EffectivePrice" >
+                </td>                
+             </tr> 
+          </div>
+        </div>
+      </div>
+          <tr></tr>
+
+
+          <!-- <td>
+                {{ markups[i].CategoryName }}
+              </td>
+              <td>
+                {{ markups[i].PartNumber }}          
+              </td>
+              <td>
+                {{ markups[i].Name }}
+              </td>
+              <td>
+                {{ markups[i].BasePriceBRL }}
+              </td>
+              <td>
+                <input type="text" [(value)]=" markups[i].MarkupPercentual " (blur)="apply($event.target.value,i)">
+              </td>
+              <td>
+                <input type="text"   [(value)]="markups[i].PriceSale ">
+              </td>
+              <td>
+                <input type="text"  [(value)]=" markups[i].EffectivePrice ">
+              </td> -->
+
+
+
+
 
     </tbody>
   </table>
+
+
+
+
+  <!-- <div formGroupName="type">
+    <div formArrayName="options">
+      <div *ngFor="let child of form.controls.type.controls.options.controls; let i = index">
+        <div formGroupName="{{i}}">
+          <label>{{i+1}}. Label: </label>
+          <input formControlName="label" /><br>
+          <label>{{i+1}}. Value: </label>
+          <input formControlName="value" />
+        </div>
+      </div>
+    </div>
+  </div> -->
+
 </form>
 <br>
 <button (click)="submit()" class="button is-primary is-large is-right ">Salvar</button>
+
+
+
+
 
 <br>
 <app-form-debug [form]="form"></app-form-debug>
