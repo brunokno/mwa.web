@@ -1,0 +1,36 @@
+<div class="fluxo-pagamento">
+    <div class="passo active">
+        <div class="circle">1</div>
+        <div class="passo-nome">Meu Carrinho</div>
+        <div class="barra">
+            <div class="barra-antes"></div>
+            <div class="barra-depois" [ngClass]="applyCssBar(2)"></div>
+            <!-- <div class="barra-depois@(Model>=2?" active":"")"></div> -->
+        </div>
+    </div>
+    <div class='passo' [ngClass]="ApplyCssCircle(2)"><!-- class="passo {{ step > 2}} " active":"")"-->
+        <div class="circle">2</div>
+        <div class="passo-nome">Faturamento</div>
+        <div class="barra">
+            <div class="barra-antes"></div>
+            <div class="barra-depois" [ngClass]="applyCssBar(3)"></div>
+            <!-- <div class="barra-depois@(Model>=3?" active":"")"></div> -->
+        </div>
+    </div>
+    <div class='passo' [ngClass]="ApplyCssCircle(3)" ><!--class="passo@(Model>=3?" active":"")"-->
+        <div class="circle">3</div>
+        <div class="passo-nome">Pagamento</div>
+        <div class="barra">
+            <div class="barra-antes"></div>
+            <div class="barra-depois" [ngClass]="applyCssBar(4)"></div>
+            <!-- <div class="barra-depois@(Model>=4?" active":"")"></div> -->
+        </div>
+    </div>
+    <div class='passo' [ngClass]="ApplyCssCircle(4)"> <!-- class="passo@(Model>=4?" active":"")"-->
+        <div class="circle">4</div>
+        <div class="passo-nome">Compra Finalizada</div>
+        <div class="barra">
+            <div class="barra-antes"></div>
+        </div>
+    </div>
+</div>

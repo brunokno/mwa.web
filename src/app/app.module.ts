@@ -27,6 +27,10 @@ import { MyProfileComponent } from './pages/my-profile/my-profile.component';
 import { RegisterPageComponent } from './pages/register-page/register-page.component';
 import { RegisterBuyPageComponent } from './pages/register-buy-page/register-buy-page.component';
 import { MarkupPageComponent } from './pages/markup-page/markup-page.component';
+import { MyPageComponent } from './pages/my-page/my-page.component';
+import { FormArrayPageComponent } from './pages/form-array-page/form-array-page.component';
+import { AddressComponent } from './pages/form-array-page/address-component/address-component.component';
+
 
 //Services
 import { CartService } from './services/cart.service';
@@ -51,6 +55,11 @@ import { DemoCarouseBasicComponent } from './components/carousel/carousel.compon
 // https://ngx-universal.herokuapp.com/carousel#basic
 // npm install ngx-bootstrap
  import { CarouselModule } from 'ngx-bootstrap/carousel';
+import { DragComponent } from './components/drag/drag.component';
+import { PaymentStepsComponent } from './components/payment-steps/payment-steps.component';
+import { CartSucessComponent } from './components/cart-sucess/cart-sucess.component';
+
+
 
 @NgModule({
   declarations: [
@@ -75,7 +84,13 @@ import { DemoCarouseBasicComponent } from './components/carousel/carousel.compon
     InternalServerErrorComponent,
     ServiceUnavailableComponent,
     UnauthorizedComponent,
-    DemoCarouseBasicComponent
+    DemoCarouseBasicComponent,
+    DragComponent,
+    PaymentStepsComponent,
+    CartSucessComponent,
+    MyPageComponent,
+    FormArrayPageComponent,
+    AddressComponent
   ],
   imports: [
     BrowserModule,

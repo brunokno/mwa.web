@@ -127,6 +127,10 @@ export class RegisterBuyPageComponent extends BaseFormComponent implements OnIni
         Validators.required
       ],
 
+
+
+      
+
       //Microsoft
       microsoft_firstName: ['', Validators.compose([
         Validators.minLength(3),

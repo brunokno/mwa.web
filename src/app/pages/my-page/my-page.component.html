@@ -1,0 +1,111 @@
+<!-- <div class="field">
+  <div class="file is-centered is-boxed is-success has-name">
+    <label class="file-label">
+      <input class="file-input" type="file" name="resume">
+      <span class="file-cta">
+        <span class="file-icon">
+          <i class="fas fa-upload"></i>
+        </span>
+        <span class="file-label">
+          Centered file…
+        </span>
+      </span>
+      <span class="file-name">
+        Screen Shot 2017-07-29 at 15.54.25.png
+      </span>
+    </label>
+  </div>
+</div> -->
+
+<!-- <form (submit)="uploadFileToActivity()">
+  <div class="form-group">
+    <label for="file">Choose File</label>
+    <input type="file"
+           id="file"
+           (change)="handleFileInput($event.target.files)">
+  </div>
+  <button type="submit">Post</button>
+</form> -->
+
+<section class="hero is-primary is-fullheight">
+    <div class="hero-body">
+      <div class="container has-text-centered">
+        <h1 class="title pacifico larger-text">
+          modern web store
+        </h1>  
+        <div class="card">
+          <div class="card-content">
+          
+
+
+              <!-- Se fosse apenas o upload -->
+              <!-- <input #fileInput type="file"/>
+              <button (click)="addFile()">Add</button>              
+              <button (click)="download()">Download</button> -->
+              
+              <br>
+              <br>
+              
+              <form [formGroup]="form" (submit)="submit()">
+                
+                  <div class="field">
+                    <p class="control">
+                      <input 
+                        type="text" 
+                        class="input is-large" 
+                        placeholder="Nome da Empresa" 
+                        formControlName="alias" 
+ 
+                      >                      
+                      <!-- <app-error-msg [control]="form.get('companyName')" label="Nome da empresa">
+                      </app-error-msg> -->
+                    </p>
+                  </div>
+                  <div class="form-group">
+                    <label for="file">Choose File</label>
+                    <input 
+                        #OtherfileInput
+                        type="file"
+                        id="file"                      
+                        formControlName="image">
+                  </div>
+                  <!-- <div class="field">
+                    <div class="file is-info has-name">
+                      <label class="file-label">
+                        <input 
+                      #OtherfileInput
+                      class="file-input" 
+                      type="file" 
+                      id="file" 
+                      formControlName="image">
+                        <span class="file-cta">
+                          <span class="file-icon">
+                            <i class="fas fa-upload"></i>
+                          </span>
+                          <span class="file-label">
+                            Info file…
+                          </span>
+                        </span>
+                        <span class="file-name">
+                          Screen Shot 2017-07-29 at 15.54.25.png
+                        </span>
+                      </label>
+                    </div>
+                  </div> -->
+
+                  <div class="field">
+                    <p>
+                      <button type="submit" class="button is-success  is-outlined is-large is-fullwidth">Salvar</button>                        
+                    </p>
+                  </div>
+              </form>
+
+
+
+          </div>  
+        </div>
+      </div>
+    </div>
+  </section>
+
+

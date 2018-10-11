@@ -105,14 +105,20 @@ export class RegisterPageComponent extends BaseFormComponent  implements OnInit 
       estado: ['', 
         Validators.required
       ],
+      birthDate:['',
+        Validators.required
+      ]
     });
 
+    this.form.controls.birthDate.patchValue("1989-02-06");
   }
 
   submit() {
-    this.dataService.createUser(this.form.value).subscribe(result => {
-      alert('Bem vindo ao Modern Store');
-      this.router.navigateByUrl('/');
+    this.dataService
+      .createUser(this.form.value)
+      .subscribe(result => {
+        alert('Bem vindo ao Modern Store');
+        this.router.navigateByUrl('/');
     }, error => {
       this.errors = JSON.parse(error._body).errors;
     });

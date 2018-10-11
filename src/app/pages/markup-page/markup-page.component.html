@@ -1,4 +1,5 @@
-<form [formGroup]="form">
+<app-headbar></app-headbar>
+<form [(formGroup)]="form" (ngSubmit)="submit()">
   <table class="table is-striped">
     <thead>
       <tr>
@@ -13,44 +14,6 @@
       </tr>
     </thead>
     <tbody>
-
-      <!--*ngFor="let markup of form.get('items').controls; let i = index">--->
-      <!-- <tr formArrayName="items" 
-          *ngFor="let markup of markups; let i = index"
-          
-      >
-        <td>
-           <input type="checkbox" 
-              [checked]="markups[i].Visible" 
-              [(ngModel)]="markups[i]"
-              [formControlName]="i"
-                
-           > 
-        </td>
-        <td>
-          {{ markups[i].CategoryName }}
-        </td>
-        <td>
-          {{ markups[i].PartNumber }}          
-        </td>
-        <td>
-          {{ markups[i].Name }}
-        </td>
-        <td>
-          {{ markups[i].BasePriceBRL }}
-        </td>
-        <td>
-          <input type="text" [(value)]=" markups[i].MarkupPercentual " (blur)="apply($event.target.value,i)">
-        </td>
-        <td>
-          <input type="text"   [(value)]="markups[i].PriceSale ">
-        </td>
-        <td>
-          <input type="text"  [(value)]=" markups[i].EffectivePrice ">
-        </td>
-      </tr> -->
-
-
 
       <div formGroupName="teste">
         <div formArrayName="items">
@@ -81,50 +44,34 @@
                       (blur)="apply($event.target.value,i)">
                 </td>
                 <td>
-                    <input 
-                      type="text"                       
-                      [value]="markups.teste.items[i].PriceSale" 
-                      formControlName="PriceSale" ><!--[ngModel]="markup.PriceSale"-->
+                    <input
+                      type="text"
+                      [(value)]="markups.teste.items[i].priceSale"
+                      formControlName="PriceSale" 
+                    >
+                      <!--
+                        [(value)]="markup.PriceSale"
+                        [(value)]="markups.teste.items[i].priceSale"
+                        [ngModel]="markup.PriceSale"
+                      -->
                 </td>
                 <td>
-                    <input 
-                      type="text"                       
-                      [value]="markups.teste.items[i].EffectivePrice" 
-                      formControlName="EffectivePrice" >
+                    <input
+                      type="text"
+                      [(value)]="markups.teste.items[i].effectivePrice"
+                      formControlName="EffectivePrice" 
+                    >
+                      <!--
+                        [(value)]="markup.EffectivePrice"
+                        [(value)]="markups.teste.items[i].effectivePrice"
+                        [ngModel]="markup.EffectivePrice"
+                      -->
                 </td>                
              </tr> 
           </div>
         </div>
       </div>
           <tr></tr>
-
-
-          <!-- <td>
-                {{ markups[i].CategoryName }}
-              </td>
-              <td>
-                {{ markups[i].PartNumber }}          
-              </td>
-              <td>
-                {{ markups[i].Name }}
-              </td>
-              <td>
-                {{ markups[i].BasePriceBRL }}
-              </td>
-              <td>
-                <input type="text" [(value)]=" markups[i].MarkupPercentual " (blur)="apply($event.target.value,i)">
-              </td>
-              <td>
-                <input type="text"   [(value)]="markups[i].PriceSale ">
-              </td>
-              <td>
-                <input type="text"  [(value)]=" markups[i].EffectivePrice ">
-              </td> -->
-
-
-
-
-
     </tbody>
   </table>
 
@@ -143,10 +90,10 @@
       </div>
     </div>
   </div> -->
-
+  <br>
+  <button type="submit"  class="button is-primary is-large is-right ">Salvar</button>
 </form>
-<br>
-<button (click)="submit()" class="button is-primary is-large is-right ">Salvar</button>
+
 
 
 

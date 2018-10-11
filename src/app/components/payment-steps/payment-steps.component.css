@@ -1,0 +1,48 @@
+.fluxo-pagamento {
+    background-color:transparent;
+    height:100px;
+    border-bottom:4px solid #2d548e;
+}
+.fluxo-pagamento .passo {
+    width:25%;
+    float:left;
+    text-align:center;
+}
+.fluxo-pagamento .passo .barra {
+    margin-top:-50px;
+}
+.fluxo-pagamento .passo .barra div{
+    width:50%;
+    float:left;
+    background-color:#C5C5C5;
+    height:6px;
+}
+.fluxo-pagamento .passo.active .barra .barra-antes,
+.fluxo-pagamento .passo.active .barra .active{
+    background-color:#2d548e;
+}
+.fluxo-pagamento .passo .circle {
+    position:relative;
+	border-radius: 50%;
+	width: 53px;
+	height: 53px; 
+    background-color:#C5C5C5;
+    margin:10px auto 4px auto;
+    color:#FFF;
+    padding-top:10px;
+    font-size:1.7em;   
+}
+.fluxo-pagamento .passo.active .circle {
+    background-color:#2d548e;
+}
+.fluxo-pagamento .passo-nome {
+    color:#2d548e;
+    font-size:1.3em;   
+}
+
+.content-master-wrapper h2 {
+    border:none !important;
+    padding:0;
+    margin:10px 0 30px 0;
+}
+

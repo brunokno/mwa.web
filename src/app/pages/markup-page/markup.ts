@@ -6,5 +6,8 @@ export interface Markup{
     BasePriceBRL:number,
     MarkupPercentual:number,
     PriceSale:number,
-    EffectivePrice: number    
+    EffectivePrice: number,
+    BasePriceUSD: number,
+    Description:string,
+    ShortDescription:string
 }

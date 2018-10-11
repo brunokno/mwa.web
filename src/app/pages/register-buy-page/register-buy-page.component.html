@@ -1,3 +1,6 @@
+<app-headbar></app-headbar>
+<!-- <payment-steps [step]="2"></payment-steps> -->
+
 <section class="hero is-primary is-fullheight">
   <div class="hero-body">
     <div class="container has-text-centered">
@@ -109,10 +112,7 @@
                   type="text" 
                   placeholder="Document" 
                   formControlName="faturamento_document">
-                <!-- <span class="tag is-danger" *ngIf="!form.controls.faturamento_document.valid && !form.controls.faturamento_document.pristine">
-                      Document inválido
-                    </span> -->
-                <app-error-msg [control]="form.get('faturamento_document')" label="CNPJ/CPF">
+                 <app-error-msg [control]="form.get('faturamento_document')" label="CNPJ/CPF">
                 </app-error-msg>
               </p>
             </div>
@@ -133,9 +133,6 @@
                     [disabled]="!docType_faturamento">
                   Isento?
                 </label>
-                <!-- <span class="tag is-danger" *ngIf="!form.controls.faturamento_inscricaoEstadual.valid && !form.controls.faturamento_inscricaoEstadual.pristine">Inscrição
-                      estadual inválido
-                    </span> -->
                 <app-error-msg [control]="form.get('faturamento_inscricaoEstadual')" label="Inscrição Estadual">
                 </app-error-msg>
               </p>
@@ -150,9 +147,6 @@
                   placeholder="Nome da Empresa"
                   formControlName="faturamento_companyName" 
                   [readonly]="!docType_faturamento">
-                <!-- <span class="tag is-danger" *ngIf="!form.controls.faturamento_companyName.valid && !form.controls.faturamento_companyName.pristine">Company
-                      name inválido
-                    </span> -->
                 <app-error-msg [control]="form.get('faturamento_companyName')" label="Nome da empresa">
                 </app-error-msg>
               </p>
@@ -162,9 +156,6 @@
               <p class="control">
                 <input class="input is-large" [(ngModel)]="customerBilling.firstName" type="text" placeholder="Nome"
                   formControlName="faturamento_firstName">
-                <!-- <span class="tag is-danger" *ngIf="!form.controls.faturamento_firstName.valid && !form.controls.faturamento_firstName.pristine">
-                      Nome inválido
-                    </span> -->
                 <app-error-msg [control]="form.get('faturamento_firstName')" label="Nome">
                 </app-error-msg>
               </p>
@@ -183,9 +174,6 @@
               <p class="control" id="emailControl">
                 <input class="input is-large" [(ngModel)]="customerBilling.email" type="email" placeholder="E-mail"
                   formControlName="faturamento_email">
-                <!-- [ngClass]=" {'is-danger': (!form.controls.faturamento_email.valid && !form.controls.faturamento_email.pristine) }" -->
-                <!-- <span class="tag is-danger" *ngIf="!form.controls.faturamento_email.valid && !form.controls.faturamento_email.pristine">
-                      E-mail inválido</span> -->
                 <app-campo-control-erro [mostrarErro]="form.get('faturamento_email').status === 'PENDING'" msgErro="Validando email...">
                 </app-campo-control-erro>
                 <app-campo-control-erro [mostrarErro]="form.get('faturamento_email').status === 'VALID'" msgErro="Email válido!">
@@ -221,9 +209,6 @@
                   type="text" 
                   placeholder="Cep"
                   formControlName="faturamento_cep" (blur)="getCep(form.controls.faturamento_cep.value,'faturamento')">
-                <!-- <span class="tag is-danger" *ngIf="!form.controls.faturamento_cep.valid && !form.controls.faturamento_cep.pristine">CEP
-                      inválido
-                    </span> -->
                 <app-error-msg [control]="form.get('faturamento_cep')" label="cep">
                 </app-error-msg>
               </p>
@@ -233,9 +218,6 @@
               <p class="control">
                 <input class="input is-large" [(ngModel)]="customerBilling.endereco" type="text" placeholder="Endereço"
                   formControlName="faturamento_endereco">
-                <!-- <span class="tag is-danger" *ngIf="!form.controls.faturamento_endereco.valid && !form.controls.faturamento_endereco.pristine">Endereço
-                      inválido
-                    </span> -->
                 <app-error-msg [control]="form.get('faturamento_endereco')" label="Endereço">
                 </app-error-msg>
               </p>
@@ -245,9 +227,6 @@
               <p class="control">
                 <input class="input is-large" [(ngModel)]="customerBilling.numero" type="text" placeholder="Número"
                   formControlName="faturamento_numero">
-                <!-- <span class="tag is-danger" *ngIf="!form.controls.faturamento_numero.valid && !form.controls.faturamento_numero.pristine">
-                      Número inválido
-                    </span> -->
                 <app-error-msg [control]="form.get('faturamento_numero')" label="Número">
                 </app-error-msg>
               </p>
@@ -264,9 +243,6 @@
               <p class="control">
                 <input class="input is-large" [(ngModel)]="customerBilling.bairro" type="text" placeholder="Bairro"
                   formControlName="faturamento_bairro">
-                <!-- <span class="tag is-danger" *ngIf="!form.controls.faturamento_bairro.valid && !form.controls.faturamento_bairro.pristine">
-                      Bairro inválido
-                    </span> -->
                 <app-error-msg [control]="form.get('faturamento_bairro')" label="Bairro">
                 </app-error-msg>
               </p>
@@ -276,9 +252,6 @@
               <p class="control">
                 <input class="input is-large" [(ngModel)]="customerBilling.cidade" type="text" placeholder="Cidade"
                   formControlName="faturamento_cidade">
-                <!-- <span class="tag is-danger" *ngIf="!form.controls.faturamento_cidade.valid && !form.controls.faturamento_cidade.pristine">
-                      Cidade inválido
-                    </span> -->
                 <app-error-msg [control]="form.get('faturamento_cidade')" label="Cidade">
                 </app-error-msg>
               </p>
@@ -289,9 +262,6 @@
               <p class="control">
                 <input class="input is-large" [(ngModel)]="customerBilling.estado" type="text" placeholder="Estado"
                   formControlName="faturamento_estado">
-                <!-- <span class="tag is-danger" *ngIf="!form.controls.faturamento_estado.valid && !form.controls.faturamento_estado.pristine">
-                      Estado inválido
-                    </span> -->
                 <app-error-msg [control]="form.get('faturamento_estado')" label="Estado">
                 </app-error-msg>
               </p>
@@ -309,9 +279,6 @@
                   type="text" 
                   placeholder="Telefone"
                   formControlName="faturamento_phone">
-                <!-- <span class="tag is-danger" *ngIf="!form.controls.faturamento_phone.valid && !form.controls.faturamento_phone.pristine">
-                      Telefone inválido
-                    </span> -->
                 <app-error-msg [control]="form.get('faturamento_phone')" label="Telefone">
                 </app-error-msg>
               </p>
@@ -326,9 +293,6 @@
                   type="text" 
                   placeholder="Celular"
                   formControlName="faturamento_cellphone">
-                <!-- <span class="tag is-danger" *ngIf="!form.controls.faturamento_cellphone.valid && !form.controls.faturamento_cellphone.pristine">
-                      Celular inválido
-                    </span> -->
                 <app-error-msg [control]="form.get('faturamento_cellphone')" label="celular">
                 </app-error-msg>
               </p>
@@ -399,9 +363,6 @@
                   type="text" 
                   placeholder="Document"
                   formControlName="microsoft_document">
-                <!-- <span class="tag is-danger" *ngIf="!form.controls.microsoft_document.valid && !form.controls.microsoft_document.pristine">Document
-                      inválido
-                    </span> -->
                 <app-error-msg [control]="form.get('microsoft_document')" label="CNPJ/CPF">
                 </app-error-msg>
               </p>
@@ -415,9 +376,6 @@
                   <input type="checkbox" id="chkIsento_microsoft" (click)="InscricaoCheck('microsoft')" [disabled]="docType_microsoft">
                   Isento?
                 </label>
-                <!-- <span class="tag is-danger" *ngIf="!form.controls.microsoft_inscricaoEstadual.valid && !form.controls.microsoft_inscricaoEstadual.pristine">Inscrição
-                      estadual inválido
-                    </span> -->
                 <app-error-msg [control]="form.get('microsoft_inscricaoEstadual')" label="Inscrição estadual">
                 </app-error-msg>
               </p>
@@ -427,9 +385,6 @@
               <p class="control">
                 <input class="input is-large" [ngModel]="customerMicrosoft.companyName" type="text" placeholder="Nome da Empresa"
                   formControlName="microsoft_companyName" [readonly]="docType_microsoft">
-                <!-- <span class="tag is-danger" *ngIf="!form.controls.microsoft_companyName.valid && !form.controls.microsoft_companyName.pristine">Company
-                      name inválido
-                    </span> -->
                 <app-error-msg [control]="form.get('microsoft_companyName')" label="Nome da Empresa">
                 </app-error-msg>
               </p>
@@ -439,9 +394,6 @@
               <p class="control">
                 <input class="input is-large" [ngModel]="customerMicrosoft.firstName" type="text" placeholder="Nome"
                   formControlName="microsoft_firstName">
-                <!-- <span class="tag is-danger" *ngIf="!form.controls.microsoft_firstName.valid && !form.controls.microsoft_firstName.pristine">Nome
-                      inválido
-                    </span> -->
                 <app-error-msg [control]="form.get('microsoft_firstName')" label="Nome">
                 </app-error-msg>
               </p>
@@ -460,9 +412,6 @@
               <p class="control" id="emailControl">
                 <input class="input is-large" [ngModel]="customerMicrosoft.email" type="email" placeholder="E-mail"
                   formControlName="microsoft_email">
-                <!-- [ngClass]=" {'is-danger': (!form.controls.microsoft_email.valid && !form.controls.microsoft_email.pristine) }" -->
-                <!-- <span class="tag is-danger" *ngIf="!form.controls.microsoft_email.valid && !form.controls.microsoft_email.pristine">E-mail
-                      inválido</span> -->
                 <app-campo-control-erro [mostrarErro]="form.get('microsoft_email').status === 'PENDING'" msgErro="Validando email...">
                 </app-campo-control-erro>
                 <app-campo-control-erro [mostrarErro]="form.get('microsoft_email').status === 'VALID'" msgErro="Email válido!">
@@ -498,9 +447,6 @@
                   type="text" 
                   placeholder="Cep"
                   formControlName="microsoft_cep" (blur)="getCep(form.controls.microsoft_cep.value, 'microsoft')">
-                <!-- <span class="tag is-danger" *ngIf="!form.controls.microsoft_cep.valid && !form.controls.microsoft_cep.pristine">CEP
-                      inválido
-                    </span> -->
                 <app-error-msg [control]="form.get('microsoft_cep')" label="Cep">
                 </app-error-msg>
               </p>
@@ -510,9 +456,6 @@
               <p class="control">
                 <input class="input is-large" [ngModel]="customerMicrosoft.endereco" type="text" placeholder="Endereço"
                   formControlName="microsoft_endereco">
-                <!-- <span class="tag is-danger" *ngIf="!form.controls.microsoft_endereco.valid && !form.controls.microsoft_endereco.pristine">Endereço
-                      inválido
-                    </span> -->
                 <app-error-msg [control]="form.get('microsoft_endereco')" label="Endereço">
                 </app-error-msg>
               </p>
@@ -522,9 +465,6 @@
               <p class="control">
                 <input class="input is-large" [ngModel]="customerMicrosoft.numero" type="text" placeholder="Número"
                   formControlName="microsoft_numero">
-                <!-- <span class="tag is-danger" *ngIf="!form.controls.microsoft_numero.valid && !form.controls.microsoft_numero.pristine">Número
-                      inválido
-                    </span> -->
                 <app-error-msg [control]="form.get('microsoft_numero')" label="Número">
                 </app-error-msg>
               </p>
@@ -534,9 +474,6 @@
               <p class="control">
                 <input class="input is-large" [ngModel]="customerMicrosoft.complemento" type="text" placeholder="Complemento"
                   formControlName="microsoft_complemento">
-                <!-- <span class="tag is-danger" *ngIf="!form.controls.microsoft_complemento.valid && !form.controls.microsoft_complemento.pristine">Complemento
-                      inválido
-                    </span> -->
               </p>
             </div>
 
@@ -544,9 +481,6 @@
               <p class="control">
                 <input class="input is-large" [ngModel]="customerMicrosoft.bairro" type="text" placeholder="Bairro"
                   formControlName="microsoft_bairro">
-                <!-- <span class="tag is-danger" *ngIf="!form.controls.microsoft_bairro.valid && !form.controls.microsoft_bairro.pristine">Bairro
-                      inválido
-                    </span> -->
                 <app-error-msg [control]="form.get('microsoft_bairro')" label="Bairro">
                 </app-error-msg>
               </p>
@@ -556,9 +490,6 @@
               <p class="control">
                 <input class="input is-large" [ngModel]="customerMicrosoft.cidade" type="text" placeholder="Cidade"
                   formControlName="microsoft_cidade">
-                <!-- <span class="tag is-danger" *ngIf="!form.controls.microsoft_cidade.valid && !form.controls.microsoft_cidade.pristine">Cidade
-                      inválido
-                    </span> -->
                 <app-error-msg [control]="form.get('microsoft_cidade')" label="Cidade">
                 </app-error-msg>
               </p>
@@ -568,9 +499,6 @@
               <p class="control">
                 <input class="input is-large" [ngModel]="customerMicrosoft.estado" type="text" placeholder="Estado"
                   formControlName="microsoft_estado">
-                <!-- <span class="tag is-danger" *ngIf="!form.controls.microsoft_estado.valid && !form.controls.microsoft_estado.pristine">Estado
-                      inválido
-                    </span> -->
                 <app-error-msg [control]="form.get('microsoft_estado')" label="Estado">
                 </app-error-msg>
               </p>
@@ -588,9 +516,6 @@
                   type="text" 
                   placeholder="Telefone"
                   formControlName="microsoft_phone">
-                <!-- <span class="tag is-danger" *ngIf="!form.controls.microsoft_phone.valid && !form.controls.microsoft_phone.pristine">Telefone
-                      inválido
-                    </span> -->
                 <app-error-msg [control]="form.get('microsoft_phone')" label="Telefone">
                 </app-error-msg>
               </p>
@@ -605,9 +530,6 @@
                   type="text" 
                   placeholder="Celular"
                   formControlName="microsoft_cellphone">
-                <!-- <span class="tag is-danger" *ngIf="!form.controls.microsoft_cellphone.valid && !form.controls.microsoft_cellphone.pristine">Celular
-                      inválido
-                    </span> -->
                 <app-error-msg [control]="form.get('microsoft_cellphone')" label="Celular">
                 </app-error-msg>
               </p>
